@@ -1,5 +1,4 @@
-import {View, Text} from 'react-native';
-import React, {useEffect, useState} from 'react';
+import {useEffect, useState} from 'react';
 import axios from 'axios';
 import Config from 'react-native-config';
 
@@ -7,7 +6,8 @@ const useFetch = url => {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [cityName, setCityName] = useState('London');
+  const [locationName, setLocationName] = useState('London');
+  const [parameter, setParameter] = useState('c');
 
   useEffect(() => {
     const fetchData = async () => {
@@ -18,7 +18,9 @@ const useFetch = url => {
             'X-RapidAPI-Host': Config.API_HOST,
           },
           params: {
-            city: cityName,
+            location: locationName,
+            format: 'json',
+            u: parameter,
           },
         });
         setData(response.data);
@@ -29,9 +31,9 @@ const useFetch = url => {
       }
     };
     fetchData();
-  }, [url, cityName]);
+  }, [url, locationName, parameter]);
 
-  return {data, loading, error, setCityName};
+  return {data, loading, error, setLocationName, setParameter};
 };
 
 export default useFetch;
