@@ -33,7 +33,7 @@ const useFetch = url => {
     fetchData();
   }, [url, locationName, parameter]);
 
-  return {data, loading, error, setLocationName, setParameter};
+  return [data, loading, error, setLocationName, setParameter];
 };
 
 export default useFetch;
